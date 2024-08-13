@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // Importing Ionicons for icons
-import { FontAwesome } from '@expo/vector-icons'; // Importing FontAwesome for Facebook icon
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Modal } from 'react-native';
+import DatePicker from 'react-native-date-picker';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('Socials');
-  const [linkedin, setLinkedin] = useState('');
-  const [instagram, setInstagram] = useState('');
-  const [facebook, setFacebook] = useState('');
+  const [activeTab, setActiveTab] = useState('Birthday');
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
 
-  const tabOptions = ['Location', 'Socials', 'Music', 'Quote', 'Value'];
+  const tabOptions = ['Name','Photo','Birthday','Location','Socials','Value', 'Interests', 'Work', 'Career', 'Submit'];
 
   const getProgressWidth = () => {
     const index = tabOptions.indexOf(activeTab);
@@ -48,41 +46,32 @@ export default function App() {
         <View style={[styles.progressBar, { width: getProgressWidth() }]} />
       </View>
 
-      <Text style={styles.title}>Don’t be shy</Text>
-      <Text style={styles.subtitle}>Please add your social networks</Text>
+      <Text style={styles.title}>Happy birthday</Text>
+      <Text style={styles.subtitle}>Which date can we celebrate?</Text>
 
-      <Text style={styles.label}>Linkedin</Text>
-      <View style={styles.inputContainer}>
-        <Ionicons name="logo-linkedin" size={24} color="#666" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="linkedin.com/in/yourprofile"
-          value={linkedin}
-          onChangeText={setLinkedin}
-        />
-      </View>
+      <TouchableOpacity style={styles.datePickerButton} onPress={() => setOpen(true)}>
+        <Text style={styles.dateText}>
+          {date.toLocaleDateString('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+          })}
+        </Text>
+      </TouchableOpacity>
 
-      <Text style={styles.label}>Instagram</Text>
-      <View style={styles.inputContainer}>
-        <Ionicons name="logo-instagram" size={24} color="#666" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="instagram.com/yourprofile"
-          value={instagram}
-          onChangeText={setInstagram}
-        />
-      </View>
-
-      <Text style={styles.label}>Facebook</Text>
-      <View style={styles.inputContainer}>
-        <FontAwesome name="facebook-official" size={24} color="#666" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="facebook.com/yourprofile"
-          value={facebook}
-          onChangeText={setFacebook}
-        />
-      </View>
+      <Modal visible={open} transparent={true} animationType="slide">
+        <View style={styles.modalContainer}>
+          <DatePicker
+            date={date}
+            onDateChange={setDate}
+            mode="date"
+            androidVariant="iosClone" // Optional, to have consistent UI across platforms
+          />
+          <TouchableOpacity style={styles.closeButton} onPress={() => setOpen(false)}>
+            <Text style={styles.closeButtonText}>Done</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -90,7 +79,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 0,
-    paddingTop: 100,  
+    paddingTop: 100,
     backgroundColor: '#f5f5f5',
     padding: 20,
     alignItems: 'center',
@@ -107,8 +96,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: '#ccc',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'center', 
+    justifyContent: 'center', 
     height: 40,
     minWidth: 80,
   },
@@ -147,30 +136,34 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
-  label: {
-    fontSize: 16,
-    color: '#2f4f2f',
-    marginBottom: 10,
-    alignSelf: 'flex-start',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
+  datePickerButton: {
+    width: '80%',
+    paddingVertical: 15,
     backgroundColor: '#fff',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#ccc',
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  icon: {
-    marginRight: 10,
+  dateText: {
+    fontSize: 18,
+    color: '#2f4f2f',
   },
-  input: {
+  modalContainer: {
     flex: 1,
-    fontSize: 16,
-    color: '#666',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  closeButton: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: '#2f4f2f',
+    borderRadius: 5,
+  },
+  closeButtonText: {
+    color: '#fff',
+    fontSize: 18,
   },
 });

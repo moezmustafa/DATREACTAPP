@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { FontAwesome, Entypo } from '@expo/vector-icons'; // Importing icons
+import { Ionicons } from '@expo/vector-icons';  // Importing Ionicons for the location icon
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('Music');
-  const [spotify, setSpotify] = useState('');
-  const [youtube, setYoutube] = useState('');
-  const [appleMusic, setAppleMusic] = useState('');
+  const [activeTab, setActiveTab] = useState('Location');
+  const [address, setAddress] = useState('');
 
-  const tabOptions = ['Socials', 'Music', 'Quote', 'Value', 'Interests'];
+  const tabOptions = ['Name','Photo','Birthday','Location','Socials','Value', 'Interests', 'Work', 'Career', 'Submit'];
 
   const getProgressWidth = () => {
     const index = tabOptions.indexOf(activeTab);
@@ -47,39 +45,16 @@ export default function App() {
         <View style={[styles.progressBar, { width: getProgressWidth() }]} />
       </View>
 
-      <Text style={styles.title}>Make some noise</Text>
-      <Text style={styles.subtitle}>Please add your music networks</Text>
+      <Text style={styles.title}>Home sweet home</Text>
+      <Text style={styles.subtitle}>Where do you live?</Text>
 
-      <Text style={styles.label}>Spotify</Text>
       <View style={styles.inputContainer}>
-        <FontAwesome name="spotify" size={24} color="#666" style={styles.icon} />
+        <Ionicons name="location-outline" size={24} color="#666" style={styles.icon} />
         <TextInput
           style={styles.input}
-          placeholder="open.spotify.com/user/yourprofile"
-          value={spotify}
-          onChangeText={setSpotify}
-        />
-      </View>
-
-      <Text style={styles.label}>YouTube</Text>
-      <View style={styles.inputContainer}>
-        <Entypo name="youtube" size={24} color="#666" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="youtube.com/yourprofile"
-          value={youtube}
-          onChangeText={setYoutube}
-        />
-      </View>
-
-      <Text style={styles.label}>Apple Music</Text>
-      <View style={styles.inputContainer}>
-        <FontAwesome name="apple" size={24} color="#666" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="applemusic.com/yourprofile"
-          value={appleMusic}
-          onChangeText={setAppleMusic}
+          placeholder="Search here for your address"
+          value={address}
+          onChangeText={setAddress}
         />
       </View>
     </View>
@@ -146,12 +121,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
-  label: {
-    fontSize: 16,
-    color: '#2f4f2f',
-    marginBottom: 10,
-    alignSelf: 'flex-start',
-  },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -162,7 +131,6 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     paddingHorizontal: 10,
     paddingVertical: 10,
-    marginBottom: 20,
   },
   icon: {
     marginRight: 10,

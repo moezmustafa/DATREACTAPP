@@ -5,7 +5,7 @@ export default function App() {
   const [name, setName] = useState('');
   const [activeTab, setActiveTab] = useState('Name');
 
-  const tabOptions = ['Name', 'Photo', 'Birthday', 'Location', 'Socials'];
+  const tabOptions = ['Name','Photo','Birthday','Location','Socials','Value', 'Interests', 'Work', 'Career', 'Submit'];
 
   const getProgressWidth = () => {
     const index = tabOptions.indexOf(activeTab);

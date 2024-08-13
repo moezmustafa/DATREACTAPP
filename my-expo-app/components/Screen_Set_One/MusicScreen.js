@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { FontAwesome, Entypo } from '@expo/vector-icons'; // Importing icons
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('Submit');
-  const [referral, setReferral] = useState('');
+  const [activeTab, setActiveTab] = useState('Music');
+  const [spotify, setSpotify] = useState('');
+  const [youtube, setYoutube] = useState('');
+  const [appleMusic, setAppleMusic] = useState('');
 
-  const tabOptions = ['Value', 'Interests', 'Work', 'Career', 'Submit'];
+  const tabOptions = ['Name','Photo','Birthday','Location','Socials','Value', 'Interests', 'Work', 'Career', 'Submit'];
 
   const getProgressWidth = () => {
     const index = tabOptions.indexOf(activeTab);
@@ -44,29 +47,41 @@ export default function App() {
         <View style={[styles.progressBar, { width: getProgressWidth() }]} />
       </View>
 
-      <Text style={styles.title}>Almost there</Text>
-      <Text style={styles.subtitle}>
-        Thank you for introducing yourself. You can submit your application and we will get back to you as soon as possible!
-      </Text>
+      <Text style={styles.title}>Make some noise</Text>
+      <Text style={styles.subtitle}>Please add your music networks</Text>
 
-      <Text style={styles.question}>Were you referred by someone?</Text>
+      <Text style={styles.label}>Spotify</Text>
       <View style={styles.inputContainer}>
+        <FontAwesome name="spotify" size={24} color="#666" style={styles.icon} />
         <TextInput
           style={styles.input}
-          placeholder="Type here the referral’s name"
-          value={referral}
-          onChangeText={setReferral}
+          placeholder="open.spotify.com/user/yourprofile"
+          value={spotify}
+          onChangeText={setSpotify}
         />
       </View>
 
-      <TouchableOpacity style={styles.submitButton}>
-        <Text style={styles.submitButtonText}>Submit Application</Text>
-      </TouchableOpacity>
+      <Text style={styles.label}>YouTube</Text>
+      <View style={styles.inputContainer}>
+        <Entypo name="youtube" size={24} color="#666" style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="youtube.com/yourprofile"
+          value={youtube}
+          onChangeText={setYoutube}
+        />
+      </View>
 
-      <Text style={styles.termsText}>
-        By submitting you accept our{' '}
-        <Text style={styles.linkText}>Terms & Conditions</Text>
-      </Text>
+      <Text style={styles.label}>Apple Music</Text>
+      <View style={styles.inputContainer}>
+        <FontAwesome name="apple" size={24} color="#666" style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="applemusic.com/yourprofile"
+          value={appleMusic}
+          onChangeText={setAppleMusic}
+        />
+      </View>
     </View>
   );
 }
@@ -131,46 +146,30 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
-  question: {
-    fontSize: 18,
+  label: {
+    fontSize: 16,
     color: '#2f4f2f',
     marginBottom: 10,
-    textAlign: 'center',
+    alignSelf: 'flex-start',
   },
   inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     width: '100%',
     backgroundColor: '#fff',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#ccc',
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
     paddingVertical: 10,
     marginBottom: 20,
   },
+  icon: {
+    marginRight: 10,
+  },
   input: {
+    flex: 1,
     fontSize: 16,
     color: '#666',
-  },
-  submitButton: {
-    backgroundColor: '#2f4f2f',
-    borderRadius: 10,
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  submitButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  termsText: {
-    fontSize: 14,
-    color: '#666',
-    textAlign: 'center',
-  },
-  linkText: {
-    color: '#2f4f2f',
-    fontWeight: 'bold',
   },
 });

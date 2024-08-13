@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Modal } from 'react-native';
-import DatePicker from 'react-native-date-picker';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('Birthday');
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
-
-  const tabOptions = ['Photo', 'Birthday', 'Location', 'Socials', 'Music'];
+  const [activeTab, setActiveTab] = useState('Submit');
+  const [referral, setReferral] = useState('');
+  const tabOptions = ['Name','Photo','Birthday','Location','Socials','Value', 'Interests', 'Work', 'Career', 'Submit'];
 
   const getProgressWidth = () => {
     const index = tabOptions.indexOf(activeTab);
@@ -46,32 +43,29 @@ export default function App() {
         <View style={[styles.progressBar, { width: getProgressWidth() }]} />
       </View>
 
-      <Text style={styles.title}>Happy birthday</Text>
-      <Text style={styles.subtitle}>Which date can we celebrate?</Text>
+      <Text style={styles.title}>Almost there</Text>
+      <Text style={styles.subtitle}>
+        Thank you for introducing yourself. You can submit your application and we will get back to you as soon as possible!
+      </Text>
 
-      <TouchableOpacity style={styles.datePickerButton} onPress={() => setOpen(true)}>
-        <Text style={styles.dateText}>
-          {date.toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-          })}
-        </Text>
+      <Text style={styles.question}>Were you referred by someone?</Text>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Type here the referral’s name"
+          value={referral}
+          onChangeText={setReferral}
+        />
+      </View>
+
+      <TouchableOpacity style={styles.submitButton}>
+        <Text style={styles.submitButtonText}>Submit Application</Text>
       </TouchableOpacity>
 
-      <Modal visible={open} transparent={true} animationType="slide">
-        <View style={styles.modalContainer}>
-          <DatePicker
-            date={date}
-            onDateChange={setDate}
-            mode="date"
-            androidVariant="iosClone" // Optional, to have consistent UI across platforms
-          />
-          <TouchableOpacity style={styles.closeButton} onPress={() => setOpen(false)}>
-            <Text style={styles.closeButtonText}>Done</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
+      <Text style={styles.termsText}>
+        By submitting you accept our{' '}
+        <Text style={styles.linkText}>Terms & Conditions</Text>
+      </Text>
     </View>
   );
 }
@@ -96,8 +90,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: '#ccc',
-    alignItems: 'center', 
-    justifyContent: 'center', 
+    alignItems: 'center',
+    justifyContent: 'center',
     height: 40,
     minWidth: 80,
   },
@@ -136,34 +130,46 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
-  datePickerButton: {
-    width: '80%',
-    paddingVertical: 15,
+  question: {
+    fontSize: 18,
+    color: '#2f4f2f',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  inputContainer: {
+    width: '100%',
     backgroundColor: '#fff',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#ccc',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    marginBottom: 20,
   },
-  dateText: {
-    fontSize: 18,
-    color: '#2f4f2f',
+  input: {
+    fontSize: 16,
+    color: '#666',
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  closeButton: {
-    marginTop: 20,
-    padding: 10,
+  submitButton: {
     backgroundColor: '#2f4f2f',
-    borderRadius: 5,
+    borderRadius: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    alignItems: 'center',
+    marginBottom: 20,
   },
-  closeButtonText: {
+  submitButtonText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  termsText: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+  },
+  linkText: {
+    color: '#2f4f2f',
+    fontWeight: 'bold',
   },
 });

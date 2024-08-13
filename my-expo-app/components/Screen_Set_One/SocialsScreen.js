@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';  // Importing Ionicons for the location icon
+import { Ionicons } from '@expo/vector-icons'; // Importing Ionicons for icons
+import { FontAwesome } from '@expo/vector-icons'; // Importing FontAwesome for Facebook icon
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('Location');
-  const [address, setAddress] = useState('');
+  const [activeTab, setActiveTab] = useState('Socials');
+  const [linkedin, setLinkedin] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [facebook, setFacebook] = useState('');
 
-  const tabOptions = ['Birthday', 'Location', 'Socials', 'Music', 'Quote'];
+  const tabOptions = ['Name','Photo','Birthday','Location','Socials','Value', 'Interests', 'Work', 'Career', 'Submit'];
 
   const getProgressWidth = () => {
     const index = tabOptions.indexOf(activeTab);
@@ -45,16 +48,39 @@ export default function App() {
         <View style={[styles.progressBar, { width: getProgressWidth() }]} />
       </View>
 
-      <Text style={styles.title}>Home sweet home</Text>
-      <Text style={styles.subtitle}>Where do you live?</Text>
+      <Text style={styles.title}>Don’t be shy</Text>
+      <Text style={styles.subtitle}>Please add your social networks</Text>
 
+      <Text style={styles.label}>Linkedin</Text>
       <View style={styles.inputContainer}>
-        <Ionicons name="location-outline" size={24} color="#666" style={styles.icon} />
+        <Ionicons name="logo-linkedin" size={24} color="#666" style={styles.icon} />
         <TextInput
           style={styles.input}
-          placeholder="Search here for your address"
-          value={address}
-          onChangeText={setAddress}
+          placeholder="linkedin.com/in/yourprofile"
+          value={linkedin}
+          onChangeText={setLinkedin}
+        />
+      </View>
+
+      <Text style={styles.label}>Instagram</Text>
+      <View style={styles.inputContainer}>
+        <Ionicons name="logo-instagram" size={24} color="#666" style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="instagram.com/yourprofile"
+          value={instagram}
+          onChangeText={setInstagram}
+        />
+      </View>
+
+      <Text style={styles.label}>Facebook</Text>
+      <View style={styles.inputContainer}>
+        <FontAwesome name="facebook-official" size={24} color="#666" style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="facebook.com/yourprofile"
+          value={facebook}
+          onChangeText={setFacebook}
         />
       </View>
     </View>
@@ -64,7 +90,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 0,
-    paddingTop: 100,
+    paddingTop: 100,  
     backgroundColor: '#f5f5f5',
     padding: 20,
     alignItems: 'center',
@@ -121,6 +147,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
+  label: {
+    fontSize: 16,
+    color: '#2f4f2f',
+    marginBottom: 10,
+    alignSelf: 'flex-start',
+  },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -131,6 +163,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     paddingHorizontal: 10,
     paddingVertical: 10,
+    marginBottom: 20,
   },
   icon: {
     marginRight: 10,
